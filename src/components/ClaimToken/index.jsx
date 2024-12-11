@@ -15,7 +15,7 @@ import {
 // import { sepolia } from 'viem/chains';
 // import { sepolia } from '@wagmi/core/chains';
 import { CONTRACT_ABI, CONTRACT_ADDRESS } from '../../constants/constant';
-import { StyledConnectWallet } from '../../Styled';
+import { StyledConnectWallet } from '../../styled';
 import { useWalletStore } from '../../hooks/useStore';
 
 function ClaimToken(props) {

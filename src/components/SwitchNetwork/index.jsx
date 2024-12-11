@@ -1,7 +1,7 @@
 import icons from '../../assets/icons';
 import images from '../../assets/images';
 import UseScreenSize from '../../helpers/UseScreenSize';
-import { StyledConnectWallet } from '../../Styled';
+import { StyledConnectWallet } from '../../styled';
 
 function SwitchNetwork(props) {
   const { width } = UseScreenSize();
