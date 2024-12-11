@@ -18,7 +18,7 @@ function App() {
   const routeList = [
     { path: '/connect-wallet', element: <MainPage /> },
     { path: '/switch-network', element: <SwitchPage /> },
-    { path: '/claim-token', element: <ClaimPage /> },
+    { path: '/', element: <ClaimPage /> },
   ];
 
   // const projectId = '1ee28ba8e4c0e9e774e13e7db4cfafb6';
