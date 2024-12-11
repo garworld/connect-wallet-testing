@@ -7,7 +7,7 @@ import image9 from './image-9.png';
 import image10 from './image-10.png';
 import union from './union.png';
 import unionBorder from './Union-border.png';
-import subtract from './subtract.png';
+import subtract from './Subtract.png';
 import ellipse from './ellipse-1.png';
 import elevateGlass from './elevate-glass.png';
 import redEllipse from './red-ellipse.svg';
