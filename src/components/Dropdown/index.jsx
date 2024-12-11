@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { StyledDropdown } from '../../Styled';
+import { StyledDropdown } from '../../styled';
 import { useDetectClickOutside } from 'react-detect-click-outside';
 import {
   useAccount,

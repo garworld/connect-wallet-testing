@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import images from '../../assets/images';
-import { StyledNavbar, StyledOptionMenu } from '../../Styled';
+import { StyledNavbar, StyledOptionMenu } from '../../styled';
 import icons from '../../assets/icons';
 import { useAccount, useConnect, useEnsName } from 'wagmi';
 import Dropdown from '../Dropdown';

@@ -1,6 +1,6 @@
 import images from '../../assets/images';
 import UseScreenSize from '../../helpers/UseScreenSize';
-import { StyledContainer, StyledLayout } from '../../Styled';
+import { StyledContainer, StyledLayout } from '../../styled';
 
 function Container({ children, withPaddingBottom }) {
   const { width } = UseScreenSize();
