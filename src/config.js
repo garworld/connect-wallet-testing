@@ -6,9 +6,10 @@ const projectId = '1ee28ba8e4c0e9e774e13e7db4cfafb6';
 
 export const config = createConfig({
   autoConnect: true,
-  chains: [sepolia],
+  chains: [sepolia, mainnet],
   connectors: [injected(), walletConnect({ projectId })],
   transports: {
     [sepolia.id]: http(),
+    [mainnet.id]: http(),
   },
 });

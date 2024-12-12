@@ -90,9 +90,9 @@ function ClaimToken(props) {
           {/* <div className="subtract"></div> */}
           {/* <div className="traps"></div> */}
           <div className="border">
-            <div className="claim-button clickable">
+            {/* <div className="claim-button clickable">
               <p>Claim Token</p>
-            </div>
+            </div> */}
           </div>
           <div className="outer-board">
             <div className="inner-board">
