@@ -2,10 +2,11 @@ import { http, createConfig, injected } from '@wagmi/core';
 import { mainnet, sepolia } from '@wagmi/core/chains';
 import { walletConnect } from 'wagmi/connectors';
 
-const projectId = '1ee28ba8e4c0e9e774e13e7db4cfafb6';
+const projectId = import.meta.env.VITE_PROJECT_ID;
+console.log({ projectId });
 
 export const config = createConfig({
-  autoConnect: true,
+  autoConnect: false,
   chains: [sepolia, mainnet],
   connectors: [injected(), walletConnect({ projectId })],
   transports: {
