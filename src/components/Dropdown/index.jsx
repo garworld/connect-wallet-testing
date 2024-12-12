@@ -13,7 +13,7 @@ import icons from '../../assets/icons';
 import UseScreenSize from '../../helpers/UseScreenSize';
 import { useWalletStore } from '../../hooks/useStore';
 
-const Dropdown = ({ onSelect, items, selectedItem, mode }) => {
+const Dropdown = ({ onSelect, items, selectedItem, mode, setShowModal }) => {
   const [show, setShow] = useState(false);
   const { width } = UseScreenSize();
   const connectedAddress = useWalletStore((state) => state.connectedAddress);
@@ -29,7 +29,7 @@ const Dropdown = ({ onSelect, items, selectedItem, mode }) => {
   const { data: ensAvatar } = useEnsAvatar({ ensName });
   const { connect, connectors } = useConnect();
   const { data: balanceData, isError, isLoading } = useBalance({ address });
-  console.log({ balanceData, connectedAddress });
+  console.log({ balanceData, connectedAddress, connectors });
 
   // truncate address
   const truncatedAddress = (wallet_address) => {
@@ -49,7 +49,16 @@ const Dropdown = ({ onSelect, items, selectedItem, mode }) => {
       <StyledDropdown width={width}>
         <button
           className={`clickable ${isConnected ? 'connected' : null}`}
-          onClick={() => setShow(!show)}
+          onClick={() => {
+            if (!isConnected) {
+              // Jika belum terkoneksi, langsung connect ke connector index 0
+              connect({ connector: connectors[0] });
+              setShowModal('false');
+            } else {
+              // Jika sudah terkoneksi, toggle dropdown
+              setShow(!show);
+            }
+          }}
         >
           {isConnected ? (
             <div className="button-connected">
@@ -78,18 +87,7 @@ const Dropdown = ({ onSelect, items, selectedItem, mode }) => {
                     Disconnect
                   </li>
                 </>
-              ) : (
-                connectors.map((connector) => {
-                  return (
-                    <li
-                      key={connector.uid}
-                      onClick={() => connect({ connector })}
-                    >
-                      {connector.name}
-                    </li>
-                  );
-                })
-              )}
+              ) : null}
             </ul>
           </div>
         </div>

@@ -687,7 +687,7 @@ const StyledOptionMenu = Styled.div`
     color: white;
 
     .content {
-        height: 80vh;
+        height: 65vh;
         width: 100%;
         border-radius: 0px 0px 30px 30px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.30);
@@ -726,13 +726,12 @@ const StyledOptionMenu = Styled.div`
 
     .close {
         width: 100%;
-        height: 20vh;
+        height: 35vh;
         display: flex;
         justify-content: center;
         align-items: center;
         backdrop-filter: blur(5px);
     }
-
 `;
 
 export {

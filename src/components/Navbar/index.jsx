@@ -59,7 +59,7 @@ function Navbar(props) {
                     Airdrop Terms & Conditions
                   </div>
                   <div className="item clickable">Questions?</div>
-                  <Dropdown />
+                  <Dropdown setShowModal={setShowModal} />
                 </div>
               </div>
               <div className="close">
