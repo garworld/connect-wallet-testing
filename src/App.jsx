@@ -21,27 +21,6 @@ function App() {
     { path: '/', element: <ClaimPage /> },
   ];
 
-  // const projectId = '1ee28ba8e4c0e9e774e13e7db4cfafb6';
-
-  // const config = createConfig({
-  //   autoConnect: true,
-  //   chains: [sepolia],
-  //   connectors: [
-  //     injected(),
-  //     // metaMask(),
-  //     // safe(),
-  //     // coinbaseWallet(),
-  //     // walletConnect({ projectId }),
-  //   ],
-  //   transports: {
-  //     // [mainnet.id]: http(),
-  //     // [arbitrum.id]: http(),
-  //     // [avalanche.id]: http(),
-  //     // [base.id]: http(),
-  //     [sepolia.id]: http(),
-  //   },
-  // });
-
   const queryClient = new QueryClient();
 
   return (
