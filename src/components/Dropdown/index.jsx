@@ -29,7 +29,7 @@ const Dropdown = ({ onSelect, items, selectedItem, mode, setShowModal }) => {
   const { data: ensAvatar } = useEnsAvatar({ ensName });
   const { connect, connectors } = useConnect();
   const { data: balanceData, isError, isLoading } = useBalance({ address });
-  console.log({ balanceData, connectedAddress, connectors });
+  console.log({ balanceData, connectedAddress });
 
   // truncate address
   const truncatedAddress = (wallet_address) => {
@@ -64,7 +64,7 @@ const Dropdown = ({ onSelect, items, selectedItem, mode, setShowModal }) => {
             <div className="button-connected">
               <img src={ensAvatar} />
               <p>{truncatedAddress(address)}</p>
-              <img src={icons.arrowDown} />
+              <img src={icons.arrowDown} style={{ width: '20px' }} />
             </div>
           ) : mode === 'switch' ? (
             'Switch Network'
