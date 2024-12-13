@@ -24,6 +24,7 @@ function ClaimToken(props) {
   const { address } = useAccount();
 
   let tokenAmountList = {};
+  let userData = null;
 
   // console.log({ allUserList });
 
@@ -44,13 +45,13 @@ function ClaimToken(props) {
     metothAmount: 'Metis & Other Chains',
   };
   if (address) {
-    // console.log({ address });
+    console.log({ address });
     // Cari data berdasarkan address yang terhubung
-    const userData = allUserList.find(
+    userData = allUserList.find(
       (item) =>
         Object.keys(item)[0].toLocaleLowerCase() === address.toLocaleLowerCase()
     );
-    // console.log({ userData });
+    console.log({ userData });
 
     // Simpan hanya nilai di dalam address ke state
     if (userData) {
@@ -143,7 +144,7 @@ function ClaimToken(props) {
                 </div>
                 <p className="eligible">You Received!</p>
                 <p className="eligible amount">
-                  {address
+                  {userData
                     ? `${parseFloat(tokenAmountList ? tokenAmountList?.totalAmount : 0).toFixed(2)} ELVT`
                     : `-`}
                 </p>
@@ -155,8 +156,8 @@ function ClaimToken(props) {
                     <div className="task" key={key}>
                       <p className="task-amount">
                         <p className="task-title">{`Snapshot on ${chainTitles[key]}`}</p>
-                        {address ? parseFloat(amount.toFixed(2)) : '-'}{' '}
-                        <span>{address ? 'ELVT' : null}</span>
+                        {userData ? parseFloat(amount.toFixed(2)) : '-'}{' '}
+                        <span>{userData ? 'ELVT' : null}</span>
                       </p>
                     </div>
                   );
