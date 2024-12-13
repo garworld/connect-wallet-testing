@@ -16,10 +16,6 @@ import { useWalletStore } from '../../hooks/useStore';
 const Dropdown = ({ onSelect, items, selectedItem, mode, setShowModal }) => {
   const [show, setShow] = useState(false);
   const { width } = UseScreenSize();
-  const connectedAddress = useWalletStore((state) => state.connectedAddress);
-  const setConnectedAddress = useWalletStore(
-    (state) => state.setConnectedAddress
-  );
   const ref = useDetectClickOutside({
     onTriggered: () => (show ? setShow(false) : null),
   });
@@ -29,7 +25,6 @@ const Dropdown = ({ onSelect, items, selectedItem, mode, setShowModal }) => {
   const { data: ensAvatar } = useEnsAvatar({ ensName });
   const { connect, connectors } = useConnect();
   const { data: balanceData, isError, isLoading } = useBalance({ address });
-  console.log({ balanceData, connectedAddress });
 
   // truncate address
   const truncatedAddress = (wallet_address) => {
@@ -39,10 +34,6 @@ const Dropdown = ({ onSelect, items, selectedItem, mode, setShowModal }) => {
       .join('')}`;
     return result;
   };
-
-  useEffect(() => {
-    setConnectedAddress(address);
-  }, [address]);
 
   const WalletOptions = () => {
     return (

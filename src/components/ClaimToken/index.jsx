@@ -16,27 +16,68 @@ import {
 // import { sepolia } from '@wagmi/core/chains';
 import { CONTRACT_ABI, CONTRACT_ADDRESS } from '../../constants/constant';
 import { StyledConnectWallet } from '../../styled';
-import { useWalletStore } from '../../hooks/useStore';
+import allUserList from '../../../final-data-perchain.json';
 
 function ClaimToken(props) {
   const { width } = UseScreenSize();
-  const connectedAddress = useWalletStore((state) => state.connectedAddress);
-  const taskList = [
-    { task: 'Snapshot of Relay tokens in Wallet', amount: '3,000' },
-    {
-      task: 'Snapshot of Relay tokens in Staking Contract',
-      amount: '1,000',
-    },
-    {
-      task: 'Snapshot of Relay tokens in Liquidity Pool',
-      amount: '2,500',
-    },
-    {
-      task: 'Snapshot of Relay tokens in Farming Contract',
-      amount: '1,500',
-    },
-  ];
+
   const { address } = useAccount();
+
+  let tokenAmountList = {};
+
+  // console.log({ allUserList });
+
+  let amountPerChain = [
+    ['arbAmount', null],
+    ['ethAmount', null],
+    ['avaxAmount', null],
+    ['bscAmount', null],
+    ['polAmount', null],
+    ['metothAmount', null],
+  ];
+  const chainTitles = {
+    arbAmount: 'Arbitrum',
+    ethAmount: 'Ethereum',
+    avaxAmount: 'Avalanche',
+    bscAmount: 'Binance Smart Chain',
+    polAmount: 'Polygon',
+    metothAmount: 'Metis & Other Chains',
+  };
+  if (address) {
+    // console.log({ address });
+    // Cari data berdasarkan address yang terhubung
+    const userData = allUserList.find(
+      (item) =>
+        Object.keys(item)[0].toLocaleLowerCase() === address.toLocaleLowerCase()
+    );
+    // console.log({ userData });
+
+    // Simpan hanya nilai di dalam address ke state
+    if (userData) {
+      const rawData = userData[address];
+      const convertedData = Object.entries(rawData).reduce(
+        (acc, [key, value]) => {
+          acc[key] = parseFloat(value.replace(',', '.'));
+          return acc;
+        },
+        {}
+      );
+      tokenAmountList = convertedData;
+      // console.log({ tokenAmountList });
+
+      amountPerChain = Object.entries(tokenAmountList).filter(([key]) =>
+        [
+          'arbAmount',
+          'ethAmount',
+          'avaxAmount',
+          'bscAmount',
+          'polAmount',
+          'metothAmount',
+        ].includes(key)
+      );
+    }
+  }
+  // console.log({ amountPerChain });
 
   const { writeContractAsync } = useWriteContract();
 
@@ -100,20 +141,22 @@ function ClaimToken(props) {
                 <div className="ellipse-logo">
                   <img src={images.elevateGlass} />
                 </div>
-                <p className="eligible">You’re Eligible!</p>
+                <p className="eligible">You Received!</p>
                 <p className="eligible amount">
-                  {connectedAddress ? '8000 ELVT' : '-'}
+                  {address
+                    ? `${parseFloat(tokenAmountList ? tokenAmountList?.totalAmount : 0).toFixed(2)} ELVT`
+                    : `-`}
                 </p>
               </div>
-              {width > 850 && <p>Eligible tokens as Relay Holder:</p>}
+              {/* {width > 850 && <p>Eligible tokens as Relay Holder:</p>} */}
               <div className="task-box">
-                {taskList.map((val) => {
+                {amountPerChain.map(([key, amount]) => {
                   return (
-                    <div className="task">
-                      <p className="task-title">{val.task}</p>
+                    <div className="task" key={key}>
                       <p className="task-amount">
-                        {connectedAddress ? val.amount : '-'}{' '}
-                        <span>{connectedAddress ? 'ELVT' : ''}</span>
+                        <p className="task-title">{`Snapshot on ${chainTitles[key]}`}</p>
+                        {address ? parseFloat(amount.toFixed(2)) : '-'}{' '}
+                        <span>{address ? 'ELVT' : null}</span>
                       </p>
                     </div>
                   );
