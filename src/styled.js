@@ -244,7 +244,7 @@ const StyledConnectWallet = Styled.div`
                 background-position: center;
                 background-repeat: no-repeat;
                 position: absolute;
-                top: ${(props) => (props.width <= 850 ? (props.mode === 'claim' ? -40 : -90) : -30)}px;
+                top: ${(props) => (props.width <= 850 ? (props.mode === 'claim' ? 70 : -90) : -30)}px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -400,7 +400,7 @@ const StyledConnectWallet = Styled.div`
                 top: ${(props) => (props.width <= 850 ? -310 : -320)}px;
                 max-width: ${(props) => (props.width <= 850 ? 100 : 70)}%;
                 width: 100%;
-                height: ${(props) => (props.width <= 850 ? 400 : 430)}px;
+                height: ${(props) => (props.width <= 850 ? '530px' : '460px')};
                 border-radius: 40px 40px 80px 80px;
                 border: 11px solid rgba(255, 255, 255, 0.50);
                 background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 9.22%, rgba(255, 255, 255, 0.10) 108.74%);
@@ -480,23 +480,22 @@ const StyledConnectWallet = Styled.div`
                     gap: 15px;
 
                     .task-box {
-                       width: 100%;
-                       height: ${(props) => (props.width <= 850 ? 250 : 150)}px;
-                       display: flex;
-                       justify-content: space-between;
-                       align-items: center; 
-                       gap: 30px;
-                       ${(props) =>
-                         props.width <= 850 &&
-                         `
-                        flex-direction: column;
-                        align-items: flex-start;
-                        gap: 10px;
-                        overflow: auto;
-                        &::-webkit-scrollbar {
-                        display: none;
-                        }
+                        width: 100%;
+                        height: ${(props) => (props.width <= 850 ? 350 : 150)}px;
+                        display: grid;
+                        grid-template-columns: repeat(3, 1fr); /* Default: 3 kolom */
+                        gap: 15px; /* Jarak antar kotak */
+
+                        ${(props) =>
+                          props.width <= 850 &&
+                          `
+                            grid-template-columns: repeat(2, 1fr); /* Ubah menjadi 2 kolom */
+                            overflow-y: auto; /* Aktifkan scroll vertikal */
+                            &::-webkit-scrollbar {
+                            width: 1px; /* Atur lebar scrollbar */
+                            }
                         `}
+                        }
 
                        .task {
                             width: 100%;
