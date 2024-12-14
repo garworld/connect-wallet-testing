@@ -17,11 +17,13 @@ import {
 import { CONTRACT_ABI, CONTRACT_ADDRESS } from '../../constants/constant';
 import { StyledConnectWallet } from '../../styled';
 import allUserList from '../../../final-data-perchain.json';
+import { useNavigate } from 'react-router-dom';
 
 function ClaimToken(props) {
   const { width } = UseScreenSize();
+  const nav = useNavigate();
 
-  const { address } = useAccount();
+  const { address, isConnected } = useAccount();
 
   let tokenAmountList = {};
   let userData = null;
@@ -114,6 +116,13 @@ function ClaimToken(props) {
     result = data;
   }
 
+  // check wallet connect
+  useEffect(() => {
+    if (!isConnected) {
+      nav('/connect-wallet');
+    }
+  }, [isConnected]);
+
   return (
     <StyledConnectWallet
       union={images.union}
@@ -144,8 +153,10 @@ function ClaimToken(props) {
                 </div>
                 <p className="eligible">You Received!</p>
                 <p className="eligible amount">
-                  {userData
-                    ? `${parseFloat(tokenAmountList ? tokenAmountList?.totalAmount : 0).toFixed(2)} ELVT`
+                  {address
+                    ? userData
+                      ? `${parseFloat(tokenAmountList ? tokenAmountList?.totalAmount : 0).toFixed(2)} ELVT`
+                      : '0 ELVT'
                     : `-`}
                 </p>
               </div>
@@ -156,8 +167,12 @@ function ClaimToken(props) {
                     <div className="task" key={key}>
                       <p className="task-amount">
                         <p className="task-title">{`Snapshot on ${chainTitles[key]}`}</p>
-                        {userData ? parseFloat(amount.toFixed(2)) : '-'}{' '}
-                        <span>{userData ? 'ELVT' : null}</span>
+                        {address
+                          ? userData
+                            ? parseFloat(amount.toFixed(2))
+                            : 0
+                          : '-'}{' '}
+                        <span>{address ? 'ELVT' : null}</span>
                       </p>
                     </div>
                   );
