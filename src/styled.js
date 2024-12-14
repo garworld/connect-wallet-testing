@@ -481,7 +481,7 @@ const StyledConnectWallet = Styled.div`
 
                     .task-box {
                         width: 100%;
-                        height: ${(props) => (props.width <= 850 ? 350 : 150)}px;
+                        height: ${(props) => (props.width <= 850 ? 350 : 200)}px;
                         display: grid;
                         grid-template-columns: repeat(3, 1fr); /* Default: 3 kolom */
                         gap: 15px; /* Jarak antar kotak */
