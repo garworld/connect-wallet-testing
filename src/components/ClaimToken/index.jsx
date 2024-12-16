@@ -151,7 +151,9 @@ function ClaimToken(props) {
                 <div className="ellipse-logo">
                   <img src={images.elevateGlass} />
                 </div>
-                <p className="eligible">You Received!</p>
+                <p className="eligible">
+                  You received the following amount of tokens on Base Network
+                </p>
                 <p className="eligible amount">
                   {address
                     ? userData
