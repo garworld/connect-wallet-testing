@@ -12,8 +12,10 @@ import {
 import icons from '../../assets/icons';
 import UseScreenSize from '../../helpers/UseScreenSize';
 import { useWalletStore } from '../../hooks/useStore';
+import { injected, walletConnect } from 'wagmi/connectors';
 
 const Dropdown = ({ onSelect, items, selectedItem, mode, setShowModal }) => {
+  const projectId = import.meta.env.VITE_PROJECT_ID;
   const [show, setShow] = useState(false);
   const { width } = UseScreenSize();
   const ref = useDetectClickOutside({
@@ -35,6 +37,24 @@ const Dropdown = ({ onSelect, items, selectedItem, mode, setShowModal }) => {
     return result;
   };
 
+  // device checker
+  const walletChecker = () => {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    // console.log({ isMobile });
+
+    if (isMobile) {
+      connect({ connector: walletConnect({ projectId }) });
+    } else {
+      // console.log(window.ethereum);
+
+      if (typeof window.ethereum !== 'undefined') {
+        connect({ connector: injected() });
+      } else {
+        connect({ connector: walletConnect({ projectId }) });
+      }
+    }
+  };
+
   const WalletOptions = () => {
     return (
       <StyledDropdown width={width}>
@@ -43,7 +63,7 @@ const Dropdown = ({ onSelect, items, selectedItem, mode, setShowModal }) => {
           onClick={() => {
             if (!isConnected) {
               // Jika belum terkoneksi, langsung connect ke connector index 0
-              connect({ connector: connectors[0] });
+              walletChecker();
               setShowModal('false');
             } else {
               // Jika sudah terkoneksi, toggle dropdown

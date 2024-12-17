@@ -31,7 +31,7 @@ function Navbar(props) {
           <div onClick={redirectToDiscord} style={{ cursor: 'pointer' }}>
             Questions?
           </div>
-          <Dropdown mode={props.mode} />
+          <Dropdown mode={props.mode} setShowModal={setShowModal} />
         </div>
       </StyledNavbar>
     );
