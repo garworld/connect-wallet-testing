@@ -5,10 +5,12 @@ import UseScreenSize from '../../helpers/UseScreenSize';
 import { StyledConnectWallet } from '../../styled';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { injected, walletConnect } from 'wagmi/connectors';
 
 function ConnectWallet() {
   const { width } = UseScreenSize();
   const nav = useNavigate();
+  const projectId = import.meta.env.VITE_PROJECT_ID;
 
   // connect wallet
   const { connect, connectors } = useConnect();
@@ -20,6 +22,24 @@ function ConnectWallet() {
       nav('/');
     }
   }, [isConnected]);
+
+  // device checker
+  const walletChecker = () => {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    console.log({ isMobile });
+
+    if (isMobile) {
+      connect({ connector: walletConnect({ projectId }) });
+    } else {
+      // console.log(window.ethereum);
+
+      if (typeof window.ethereum !== 'undefined') {
+        connect({ connector: injected() });
+      } else {
+        connect({ connector: walletConnect({ projectId }) });
+      }
+    }
+  };
 
   return (
     <StyledConnectWallet
@@ -46,7 +66,7 @@ function ConnectWallet() {
             <div
               className="connect-button clickable"
               onClick={() => {
-                connect({ connector: connectors[0] });
+                walletChecker();
               }}
             >
               <p>Connect Wallet</p>
@@ -58,12 +78,12 @@ function ConnectWallet() {
           </div>
           {width > 850 && (
             <div className="warning">
-              Check your eligible token to claim by connecting your wallet
+              Check your received airdrop tokens by connecting your wallet
             </div>
           )}
           {width <= 850 && (
             <div className="warning">
-              Check your eligible token to claim by connecting your wallet
+              Check your received airdrop tokens by connecting your wallet
             </div>
           )}
         </div>
